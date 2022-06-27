@@ -40,13 +40,13 @@ def compartir_receta():
     if request.method == 'GET':
         return render_template('ingresar_receta.html', usuario_actual=usuario_actual)
     else:
-        nombre_receta = request.form['nombre_receta'].capitalize()
+        nombre_receta = request.form['nombre_receta']
         tiempo_receta = int(request.form['tiempo_receta'])
         elaboracion = request.form['procedimiento']
         idUsuario = int(request.form['idUsuario'])
         fecha = datetime.now()
         idReceta = len(Receta.query.order_by(Receta.id).all())
-        unaReceta = Receta(nombre=nombre_receta, tiempo=tiempo_receta, fecha=fecha, elaboracion=elaboracion, cantidadmegusta=0, usuarioid=idUsuario)
+        unaReceta = Receta(nombre=nombre_receta, tiempo=tiempo_receta, fecha=fecha, elaboracion=elaboracion.capitalize(), cantidadmegusta=8, usuarioid=idUsuario)
         db.session.add(unaReceta)
         db.session.commit()
         band = False
@@ -63,13 +63,10 @@ def compartir_receta():
                 db.session.commit()
                 i += 1
         return redirect(url_for('home'))
-                
-            # consultar que no esten vacios, si estan vacios bandera = true, iterar, crear receta, linkear ingredientes con receta
-            # linkear receta con usuario
 
 @app.route('/consultar_ranking')
 def consultar_ranking():
-    return 'consulta ranking'
+    return render_template('mostrar_ranking.html', recetas = Receta.query.order_by(-Receta.cantidadmegusta).limit(5))
 
 
 @app.route('/consultar_recetas')
