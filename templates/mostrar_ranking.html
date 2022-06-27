@@ -1,0 +1,27 @@
+{% extends "base_template2.html" %}
+{% block title %}Ranking de Recetas{% endblock %}
+{% block content %}
+<h1>Sancho Panza</h1>
+<hr/>
+<h2>Top 5 Recetas con más "Me Gusta"</h2>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Receta</th>
+                <th>Usuario</th>
+                <th>Me gusta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receta in recetas %}
+                <tr>
+                    <td>{{ receta.nombre }}</td>
+                    <td>{{ receta.usuario.nombre }}</td>
+                    <td>{{ receta.cantidadmegusta }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
