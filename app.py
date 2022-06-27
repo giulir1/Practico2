@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
@@ -35,18 +36,34 @@ def home():
 
 @app.route('/compartir_receta', methods=['POST', 'GET'])
 def compartir_receta():
+    global usuario_actual
     if request.method == 'GET':
-        return render_template('compartir_receta.html')
+        return render_template('ingresar_receta.html', usuario_actual=usuario_actual)
     else:
+        nombre_receta = request.form['nombre_receta'].capitalize()
+        tiempo_receta = int(request.form['tiempo_receta'])
+        elaboracion = request.form['procedimiento']
+        idUsuario = int(request.form['idUsuario'])
+        fecha = datetime.now()
+        idReceta = len(Receta.query.order_by(Receta.id).all())
+        unaReceta = Receta(nombre=nombre_receta, tiempo=tiempo_receta, fecha=fecha, elaboracion=elaboracion, cantidadmegusta=0, usuarioid=idUsuario)
+        db.session.add(unaReceta)
+        db.session.commit()
         band = False
         i = 1
         while (i <= 10) and (not band):
-            if (not request.form['nombre_ingrediente']+str(i)) or (not request.form['cantidad']+str(i)) or (not request.form['unidad']+str(i)):
+            if (not request.form['nombre_ingrediente'+str(i)]) or (not request.form['cantidad_ingrediente'+str(i)]) or (not request.form['unidad_ingrediente'+str(i)]):
                 band = True
             else:
                 nombre_ingrediente = request.form['nombre_ingrediente'+str(i)]
-                cantidad = request.form['cantidad'+str(i)]
-                unidad = request.form['unidad'+str(i)]
+                cantidad_ingrediente = request.form['cantidad_ingrediente'+str(i)]
+                unidad_ingrediente = request.form['unidad_ingrediente'+str(i)]
+                unIngrediente = Ingrediente(nombre=nombre_ingrediente, cantidad=cantidad_ingrediente, unidad=unidad_ingrediente, recetaid=idReceta+1)
+                db.session.add(unIngrediente)
+                db.session.commit()
+                i += 1
+        return redirect(url_for('home'))
+                
             # consultar que no esten vacios, si estan vacios bandera = true, iterar, crear receta, linkear ingredientes con receta
             # linkear receta con usuario
 
@@ -57,8 +74,15 @@ def consultar_ranking():
 
 @app.route('/consultar_recetas')
 def consultar_recetas():
-    return 'consulta recetas'
+    return render_template('consultar_recetas.html')
 
+@app.route('/consultar_tiempo')
+def consultar_recetas_tiempo():
+    return 'consultar por tiempo'
+
+@app.route('/consultar_ingredientes')
+def consultar_recetas_ingrediente():
+    return 'consultar por ingrediente'
 
 @app.route('/error')
 def error():
