@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang=es>
+	<head>
+		<title>Aplicación</title>
+	</head>
+	<body>
+		<h1>Iniciar Sesión</h1>
+		<div>
+		<form action="{{ url_for('inicio_sesion') }}" method = "post">
+			<label for = "correo">Correo electrónico</label><br>
+			<input type ="text" name="correo" placeholder = "Correo" required><br>
+			<label for ="clave">Contraseña</label><br>
+			<input type ="password" name="clave" placeholder = "Contraseña" required><br>
+			<input type="submit" value = "Iniciar Sesion" />
+		</form>
+		</div>
+	</body>
+</html>
+	

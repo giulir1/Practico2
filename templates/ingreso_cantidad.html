@@ -1,0 +1,10 @@
+{% extends "base_template.html" %}
+{% block title %}Sancho Panza{% endblock %}
+{% block content %}
+<h1>Sancho Panza</h1>
+<h2>Compartir receta</h2>
+<form method="post" action="{{ url_for('compartir_receta') }}">
+    <input type="number" name="cantidad_ingredientes" min="1" max="10" value="5"required><br>
+    <input type="submit" value="Ingresar">
+</form>
+{% endblock %}

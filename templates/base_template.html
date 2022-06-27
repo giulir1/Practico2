@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body>
+      {% block content %} {% endblock %}
+      <div class="myDiv">
+          <br><a href="{{ url_for('inicio_sesion') }}">Cerrar Sesión</a><br>
+      </div>
+  </body>
+</html>

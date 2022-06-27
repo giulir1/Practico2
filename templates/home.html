@@ -1,0 +1,11 @@
+{% extends "base_template.html" %}
+{% block title %}Sancho Panza{% endblock %}
+{% block content %}
+<h1>Sancho Panza</h1>
+<h2>Inicio</h2>
+<ul>
+  <li> <a href="{{url_for('compartir_receta') }}">Compartir Receta</a></li><br>
+  <li> <a href="{{url_for('consultar_ranking') }}">Consultar Ranking</a></li><br>
+  <li> <a href="{{url_for('consultar_recetas') }}">Consultar Recetas</a></li><br>
+</ul>
+{% endblock %}

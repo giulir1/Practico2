@@ -1,0 +1,9 @@
+{% extends "base_template.html" %}
+{% block title %}Consultar Recetas{% endblock %}
+{% block content %}
+<h2>Consultar Recetas</h2>
+<ul>
+  <li> <a href="{{url_for('consultar_recetas_tiempo') }}">Consultar Ranking</a></li><br>
+  <li> <a href="{{url_for('consultar_recetas_ingrediente') }}">Consultar Recetas</a></li><br>
+</ul>
+{% endblock %}

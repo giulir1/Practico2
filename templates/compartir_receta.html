@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% block title %}Sancho Panza{% endblock %}
+{% block content %}
+<h1>Sancho Panza</h1>
+<h2>Compartir receta</h2>
+<form method="post">
+    {% for numero in range(cantidad_ingredientes) %}
+        <input type="text" name="nombre_ingrediente{{set i+=1}}">
+        <input type="text" name="cantidad{{set i+=1}}">
+    {% endfor %}
+</form>
+{% endblock %}
