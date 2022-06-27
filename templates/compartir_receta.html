@@ -4,9 +4,57 @@
 <h1>Sancho Panza</h1>
 <h2>Compartir receta</h2>
 <form method="post">
-    {% for numero in range(cantidad_ingredientes) %}
-        <input type="text" name="nombre_ingrediente{{set i+=1}}">
-        <input type="text" name="cantidad{{set i+=1}}">
-    {% endfor %}
+        <h2>Nueva Receta</h2>
+        <label for="nombre_receta">Nombre</label><br>
+        <input type="text" id="nombre_receta" name="nombre_receta" required><br><br>
+        <label for="tiempo_receta">Tiempo de elaboración (minutos)</label><br>
+        <input type="number" id="tiempo_receta" name="tiempo_receta" min="1" required><br><br>
+        <label for="elaboracion_receta">Elaboración</label><br>
+        <input type="text" id="elaboracion_receta" name="elaboracion_receta" required>
+        <h2>Ingredientes</h2>
+        <h3>Ingrediente 1</h3>
+        <label for="nombre_ingrediente1">Nombre</label>
+        <label for="cantidad1">Cantidad</label>
+        <label for="unidad1">Unidad</label><br>
+        <input type="text" id="nombre_ingrediente1" name="nombre_ingrediente1" required> <!--ingrediente 1-->
+        <input type="number" id="cantidad1" name="cantidad1" min="0.1" required>
+        <input type="text" id="unidad1" name="unidad1" required>
+        <!--completar id del resto de ingredientes-->
+        <h3>Ingrediente 2</h3>
+        <input type="text" name="nombre_ingrediente2">  <!--ingrediente 2-->
+        <input type="number" name="cantidad2" min="0.1">
+        <input type="text" name="unidad2">
+        <h3>Ingrediente 3</h3>
+        <input type="text" name="nombre_ingrediente3">  <!--ingrediente 3-->
+        <input type="number" name="cantidad3" min="0.1">
+        <input type="text" name="unidad3">
+        <h3>Ingrediente 4</h3>
+        <input type="text" name="nombre_ingrediente4">  <!--ingrediente 4-->
+        <input type="number" name="cantidad4" min="0.1">
+        <input type="text" name="unidad4">
+        <h3>Ingrediente 5</h3>
+        <input type="text" name="nombre_ingrediente5">  <!--ingrediente 5-->
+        <input type="number" name="cantidad5" min="0.1">
+        <input type="text" name="unidad5">
+        <h3>Ingrediente 6</h3>
+        <input type="text" name="nombre_ingrediente6">  <!--ingrediente 6-->
+        <input type="number" name="cantidad6" min="0.1">
+        <input type="text" name="unidad6">
+        <h3>Ingrediente 7</h3>
+        <input type="text" name="nombre_ingrediente7">  <!--ingrediente 7-->
+        <input type="number" name="cantidad7" min="0.1">
+        <input type="text" name="unidad7">
+        <h3>Ingrediente 8</h3>
+        <input type="text" name="nombre_ingrediente8">  <!--ingrediente 8-->
+        <input type="number" name="cantidad8" min="0.1">
+        <input type="text" name="unidad8">
+        <h3>Ingrediente 9</h3>
+        <input type="text" name="nombre_ingrediente9">  <!--ingrediente 9-->
+        <input type="number" name="cantidad9" min="0.1">
+        <input type="text" name="unidad9">
+        <h3>Ingrediente 10</h3>
+        <input type="text" name="nombre_ingrediente10">  <!--ingrediente 10-->
+        <input type="number" name="cantidad10" min="0.1">
+        <input type="text" name="unidad10">
 </form>
 {% endblock %}
