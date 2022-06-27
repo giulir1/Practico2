@@ -36,12 +36,19 @@ def home():
 @app.route('/compartir_receta', methods=['POST', 'GET'])
 def compartir_receta():
     if request.method == 'GET':
-        return render_template('ingreso_cantidad.html')
+        return render_template('compartir_receta.html')
     else:
-        i = 0
-        cantidad_ingredientes = int(request.form['cantidad_ingredientes'])
-        return render_template('compartir_receta.html', cantidad_ingredientes=cantidad_ingredientes, i=i)
-
+        band = False
+        i = 1
+        while (i <= 10) and (not band):
+            if (not request.form['nombre_ingrediente']+str(i)) or (not request.form['cantidad']+str(i)) or (not request.form['unidad']+str(i)):
+                band = True
+            else:
+                nombre_ingrediente = request.form['nombre_ingrediente'+str(i)]
+                cantidad = request.form['cantidad'+str(i)]
+                unidad = request.form['unidad'+str(i)]
+            # consultar que no esten vacios, si estan vacios bandera = true, iterar, crear receta, linkear ingredientes con receta
+            # linkear receta con usuario
 
 @app.route('/consultar_ranking')
 def consultar_ranking():
