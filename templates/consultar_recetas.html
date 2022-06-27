@@ -1,9 +1,10 @@
 {% extends "base_template.html" %}
 {% block title %}Consultar Recetas{% endblock %}
 {% block content %}
+<h1>Sancho Panza</h1>
 <h2>Consultar Recetas</h2>
 <ul>
-  <li> <a href="{{url_for('consultar_recetas_tiempo') }}">Consultar Ranking</a></li><br>
-  <li> <a href="{{url_for('consultar_recetas_ingrediente') }}">Consultar Recetas</a></li><br>
+  <li> <a href="{{url_for('consultar_recetas_tiempo') }}">Consultar por Tiempo</a></li><br>
+  <li> <a href="{{url_for('consultar_recetas_ingrediente') }}">Consultar por Ingrediente</a></li><br>
 </ul>
 {% endblock %}

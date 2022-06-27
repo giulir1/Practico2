@@ -1,0 +1,70 @@
+{% extends "base_template.html" %}
+{% block title %}Ingresar Receta{% endblock %}
+{% block content %}
+  <h1>Sancho Panza</h1>
+  <h2>Ingresar Receta</h2>
+  <form action={{ url_for('compartir_receta') }} method="post">
+    <label for ="nombre_receta">Nombre de la Receta: </label><input type ="text" id="nombre_receta" name="nombre_receta" placeholder = "Nombre de la Receta" required/><br>
+    <p></p>
+    <label for ="tiempo_receta">Tiempo Estimado de Realización: </label><input type ="number" id="tiempo_receta" name="tiempo_receta" min="1" required/> minutos<br>
+    <p></p>
+    <h3>Lista de Ingredientes:</h3>
+    <ol>
+      <li>
+        <label for ="nombre_ingrediente1">Nombre: </label><input type ="text" id="nombre_ingrediente1" name="nombre_ingrediente1" required/>
+        <label for ="cantidad_ingrediente1">Cantidad: </label><input type ="text" id="cantidad_ingrediente1" name="cantidad_ingrediente1" required/>
+        <label for ="unidad_ingrediente1">Unidad: </label><input type ="text" id="unidad_ingrediente1" name="unidad_ingrediente1" required/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente2">Nombre: </label><input type ="text" id="nombre_ingrediente2" name="nombre_ingrediente2"/>
+        <label for ="cantidad_ingrediente2">Cantidad: </label><input type ="text" id="cantidad_ingrediente2" name="cantidad_ingrediente2"/>
+        <label for ="unidad_ingrediente2">Unidad: </label><input type ="text" id="unidad_ingrediente2" name="unidad_ingrediente2"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente3">Nombre: </label><input type ="text" id="nombre_ingrediente3" name="nombre_ingrediente3"/>
+        <label for ="cantidad_ingrediente3">Cantidad: </label><input type ="text" id="cantidad_ingrediente3" name="cantidad_ingrediente3"/>
+        <label for ="unidad_ingrediente3">Unidad: </label><input type ="text" id="unidad_ingrediente3" name="unidad_ingrediente3"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente4">Nombre: </label><input type ="text" id="nombre_ingrediente4" name="nombre_ingrediente4"/>
+        <label for ="cantidad_ingrediente4">Cantidad: </label><input type ="text" id="cantidad_ingrediente4" name="cantidad_ingrediente4"/>
+        <label for ="unidad_ingrediente4">Unidad: </label><input type ="text" id="unidad_ingrediente4" name="unidad_ingrediente4"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente5">Nombre: </label><input type ="text" id="nombre_ingrediente5" name="nombre_ingrediente5"/>
+        <label for ="cantidad_ingrediente5">Cantidad: </label><input type ="text" id="cantidad_ingrediente5" name="cantidad_ingrediente5"/>
+        <label for ="unidad_ingrediente5">Unidad: </label><input type ="text" id="unidad_ingrediente5" name="unidad_ingrediente5"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente6">Nombre: </label><input type ="text" id="nombre_ingrediente6" name="nombre_ingrediente6"/>
+        <label for ="cantidad_ingrediente6">Cantidad: </label><input type ="text" id="cantidad_ingrediente6" name="cantidad_ingrediente6"/>
+        <label for ="unidad_ingrediente6">Unidad: </label><input type ="text" id="unidad_ingrediente6" name="unidad_ingrediente6"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente7">Nombre: </label><input type ="text" id="nombre_ingrediente7" name="nombre_ingrediente7"/>
+        <label for ="cantidad_ingrediente7">Cantidad: </label><input type ="text" id="cantidad_ingrediente7" name="cantidad_ingrediente7"/>
+        <label for ="unidad_ingrediente7">Unidad: </label><input type ="text" id="unidad_ingrediente7" name="unidad_ingrediente7"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente8">Nombre: </label><input type ="text" id="nombre_ingrediente8" name="nombre_ingrediente8"/>
+        <label for ="cantidad_ingrediente8">Cantidad: </label><input type ="text" id="cantidad_ingrediente8" name="cantidad_ingrediente8"/>
+        <label for ="unidad_ingrediente8">Unidad: </label><input type ="text" id="unidad_ingrediente8" name="unidad_ingrediente8"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente9">Nombre: </label><input type ="text" id="nombre_ingrediente9" name="nombre_ingrediente19"/>
+        <label for ="cantidad_ingrediente9">Cantidad: </label><input type ="text" id="cantidad_ingrediente9" name="cantidad_ingrediente9"/>
+        <label for ="unidad_ingrediente9">Unidad: </label><input type ="text" id="unidad_ingrediente9" name="unidad_ingrediente9"/><p></p>
+      </li>
+      <li>
+        <label for ="nombre_ingrediente10">Nombre: </label><input type ="text" id="nombre_ingrediente10" name="nombre_ingrediente10"/>
+        <label for ="cantidad_ingrediente10">Cantidad: </label><input type ="text" id="cantidad_ingrediente10" name="cantidad_ingrediente10"/>
+        <label for ="unidad_ingrediente10">Unidad: </label><input type ="text" id="unidad_ingrediente10" name="unidad_ingrediente10"/><p></p>
+      </li>
+    </ol>
+    <h3>Procedimiento de la Receta:</h3>
+    <textarea id="procedimiento" name="procedimiento" placeholder="Procedimiento" rows="8" cols="80"></textarea><br>
+    <input type="hidden" id="idUsuario" name="idUsuario" value={{usuario_actual.id}}>
+    <input type="submit" value="Enviar"></input>
+  </form>
+  <br>
+{% endblock %}
