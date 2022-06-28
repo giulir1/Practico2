@@ -46,7 +46,8 @@ def compartir_receta():
         idUsuario = int(request.form['idUsuario'])
         fecha = datetime.now()
         idReceta = len(Receta.query.order_by(Receta.id).all())
-        unaReceta = Receta(nombre=nombre_receta, tiempo=tiempo_receta, fecha=fecha, elaboracion=elaboracion.capitalize(), cantidadmegusta=8, usuarioid=idUsuario)
+        unaReceta = Receta(nombre=nombre_receta, tiempo=tiempo_receta, fecha=fecha, elaboracion=elaboracion.capitalize(), cantidadmegusta=0
+                           , usuarioid=idUsuario)
         db.session.add(unaReceta)
         db.session.commit()
         band = False
@@ -64,26 +65,40 @@ def compartir_receta():
                 i += 1
         return redirect(url_for('home'))
 
+
 @app.route('/consultar_ranking')
 def consultar_ranking():
-    return render_template('mostrar_ranking.html', recetas = Receta.query.order_by(-Receta.cantidadmegusta).limit(5))
+    return render_template('mostrar_ranking.html', recetas=Receta.query.order_by(-Receta.cantidadmegusta).limit(5))
 
 
 @app.route('/consultar_recetas')
 def consultar_recetas():
     return render_template('consultar_recetas.html')
 
-@app.route('/consultar_tiempo')
+
+@app.route('/consultar_tiempo', methods=['GET', 'POST'])
 def consultar_recetas_tiempo():
-    return 'consultar por tiempo'
+    band = True
+    if request.method == 'GET':
+        return render_template('consultar_recetas_tiempo.html', band=band)
+    else:
+        tiempo = int(request.form['tiempo_receta'])
+        recetas = Receta.query.filter(Receta.tiempo < tiempo).all()
+        if len(recetas) == 0:
+            band = False
+        return render_template('consultar_recetas_tiempo.html', tiempo=tiempo, recetas=recetas, band=band)
 
-@app.route('/consultar_ingredientes')
+
+@app.route('/consultar_ingredientes', methods=['GET', 'POST'])
 def consultar_recetas_ingrediente():
-    return 'consultar por ingrediente'
-
-@app.route('/error')
-def error():
-    return render_template('error.html')
+    band = True
+    if request.method == 'GET':
+        return render_template('consultarecetasprueba.html', band=band)
+    else:
+        ingredientes = Ingrediente.query.filter_by(nombre=request.form['ingrediente_receta']).first()
+        if ingredientes is None:
+            band = False
+        return render_template('consultarecetasprueba.html', ingredientes=ingredientes, band=band)
 
 
 if __name__ == '__main__':
