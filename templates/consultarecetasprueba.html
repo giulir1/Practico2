@@ -1,0 +1,12 @@
+{% extends "base_template2.html" %}
+{% block title %}Consultar Recetas{% endblock %}
+{% block content %}
+<h1>Sancho Panza</h1>
+<hr/>
+<h2>Consultar Recetas por Ingrediente</h2>
+<form action="{{ url_for('consultar_recetas_ingrediente') }}" method="post">
+    <label for="ingrediente_receta">Ingrediente a buscar: </label> <input type="text" id="ingrediente_receta" name="ingrediente_receta" required><br>
+    <input type="submit" value="Aceptar">
+</form>
+<h3>{{ Receta.ingrediente.nombre }}</h3>
+{% endblock %}

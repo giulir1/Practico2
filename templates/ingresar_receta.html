@@ -3,7 +3,7 @@
 {% block content %}
   <h1>Sancho Panza</h1>
   <h2>Ingresar Receta</h2>
-  <form action={{ url_for('compartir_receta') }} method="post">
+  <form action="{{ url_for('compartir_receta') }}" method="post">
     <label for ="nombre_receta">Nombre de la Receta: </label><input type ="text" id="nombre_receta" name="nombre_receta" placeholder = "Nombre de la Receta" required/><br>
     <p></p>
     <label for ="tiempo_receta">Tiempo Estimado de Realización: </label><input type ="number" id="tiempo_receta" name="tiempo_receta" min="1" required/> minutos<br>

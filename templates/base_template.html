@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}</title>
+      <link rel="stylesheet" href="{{url_for('static', filename='css/estilos.css')}}">
+      <meta charset="UTF-8">
+      <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
       {% block content %} {% endblock %}
