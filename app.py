@@ -26,6 +26,7 @@ def inicio_sesion():
             else:
                 return render_template('error.html', error='Contraseña incorrecta.')
     else:
+        usuario_actual = None
         return render_template('inicio_sesion.html')
 
 
@@ -36,7 +37,6 @@ def home():
 
 @app.route('/compartir_receta', methods=['POST', 'GET'])
 def compartir_receta():
-    global usuario_actual
     if request.method == 'GET':
         return render_template('ingresar_receta.html', usuario_actual=usuario_actual)
     else:
@@ -46,8 +46,7 @@ def compartir_receta():
         idUsuario = int(request.form['idUsuario'])
         fecha = datetime.now()
         idReceta = len(Receta.query.order_by(Receta.id).all())
-        unaReceta = Receta(nombre=nombre_receta, tiempo=tiempo_receta, fecha=fecha, elaboracion=elaboracion.capitalize(), cantidadmegusta=0
-                           , usuarioid=idUsuario)
+        unaReceta = Receta(nombre=nombre_receta, tiempo=tiempo_receta, fecha=fecha, elaboracion=elaboracion.capitalize(), cantidadmegusta=0, usuarioid=idUsuario)
         db.session.add(unaReceta)
         db.session.commit()
         band = False
@@ -56,7 +55,7 @@ def compartir_receta():
             if (not request.form['nombre_ingrediente'+str(i)]) or (not request.form['cantidad_ingrediente'+str(i)]) or (not request.form['unidad_ingrediente'+str(i)]):
                 band = True
             else:
-                nombre_ingrediente = request.form['nombre_ingrediente'+str(i)]
+                nombre_ingrediente = request.form['nombre_ingrediente'+str(i)].capitalize()
                 cantidad_ingrediente = request.form['cantidad_ingrediente'+str(i)]
                 unidad_ingrediente = request.form['unidad_ingrediente'+str(i)]
                 unIngrediente = Ingrediente(nombre=nombre_ingrediente, cantidad=cantidad_ingrediente, unidad=unidad_ingrediente, recetaid=idReceta+1)
@@ -86,19 +85,51 @@ def consultar_recetas_tiempo():
         recetas = Receta.query.filter(Receta.tiempo < tiempo).all()
         if len(recetas) == 0:
             band = False
-        return render_template('consultar_recetas_tiempo.html', tiempo=tiempo, recetas=recetas, band=band)
+        return render_template('consultar_recetas_tiempo.html', tiempo=tiempo, recetas=recetas, band=band, usuario_actual=usuario_actual)
 
 
 @app.route('/consultar_ingredientes', methods=['GET', 'POST'])
 def consultar_recetas_ingrediente():
     band = True
     if request.method == 'GET':
-        return render_template('consultarecetasprueba.html', band=band)
+        return render_template('consultar_recetas_ingrediente.html', band=band)
     else:
-        ingredientes = Ingrediente.query.filter_by(nombre=request.form['ingrediente_receta']).first()
-        if ingredientes is None:
+        ingrediente = str(request.form['ingrediente_receta']).lower()
+        listarecetas = []
+        recetas = Receta.query.all()
+        for receta in recetas:
+            i = 0
+            band2 = False
+            ingredientes = Ingrediente.query.filter_by(recetaid=receta.id).all()
+            while (not band2) and (i < len(ingredientes)):
+                if ingrediente in str(ingredientes[i].nombre).lower():
+                    listarecetas.append(receta)
+                    band2 = True
+                else:
+                    i += 1
+        if len(recetas) == 0:
             band = False
-        return render_template('consultarecetasprueba.html', ingredientes=ingredientes, band=band)
+        return render_template('consultar_recetas_ingrediente.html', ingrediente=ingrediente, recetas=listarecetas, band=band, usuario_actual=usuario_actual)
+
+
+@app.route('/receta', methods=['GET', 'POST'])
+def ver_receta():
+    recetaid = request.form['recetaid']
+    receta = Receta.query.filter_by(id=recetaid).first()
+    ingredientes = receta.ingrediente
+    if request.form['megusta'] == 'nomegusta':
+        band = False
+        return render_template('receta.html', receta=receta, usuario_actual=usuario_actual, ingredientes=ingredientes, band=band)
+    elif request.form['megusta'] == 'Ya no Me Gusta':
+        band = False
+        receta.cantidadmegusta -= 1
+        db.session.commit()
+        return render_template('receta.html', receta=receta, usuario_actual=usuario_actual, ingredientes=ingredientes, band=band)
+    elif request.form['megusta'] == 'Me Gusta':
+        band = True
+        receta.cantidadmegusta += 1
+        db.session.commit()
+        return render_template('receta.html', receta=receta, usuario_actual=usuario_actual, ingredientes=ingredientes, band=band)
 
 
 if __name__ == '__main__':
