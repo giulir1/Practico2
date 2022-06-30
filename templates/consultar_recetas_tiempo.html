@@ -1,9 +1,9 @@
 {% extends "base_template2.html" %}
 {% block title %}Consultar Recetas{% endblock %}
 {% block content %}
-<h1>Sancho Panza</h1>
+<h1>Sancho Panza Restaurant</h1>
 <hr/>
-<h2>Consultar Recetas por Tiempo</h2>
+<h2 class="a">Consultar Recetas por Tiempo</h2>
 <form action="{{ url_for('consultar_recetas_tiempo') }}" method="post">
     <label for="tiempo_receta">Tiempo estimado: </label> <input type="number" id="tiempo_receta" name="tiempo_receta" min="1" required> minutos <br>
     <input type="submit" value="Aceptar">
@@ -16,16 +16,20 @@
                 <thead>
                     <tr>
                         <th>Receta</th>
-                        <th>Usuario</th>
-                        <th>Me gusta</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for receta in recetas %}
                         <tr>
                             <td>{{ receta.nombre }}</td>
-                            <td>{{ receta.usuario.nombre }}</td>
-                            <td>{{ receta.cantidadmegusta }}</td>
+                            <td>
+                                <form action="{{ url_for('ver_receta') }}" method="post">
+                                    <input type="hidden" id="recetaid" name="recetaid" value={{receta.id}}>
+                                    <input type="hidden" id="usuario_receta" name="usuario_receta" value={{receta.usuario.nombre}}>
+                                    <input type="hidden" id="megusta" name="megusta" value="nomegusta">
+                                    <input type="submit" value="Ver receta">
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -33,6 +37,8 @@
         </div>
     {% endif %}
 {% else %}
-        <h3>No hay recetas con tiempo de preparación menor a {{ tiempo }}.</h3>
+        <h3>No hay recetas con tiempo de preparación menor a {{ tiempo }} minutos.</h3>
 {% endif %}
+<br>
+<a href="{{ url_for('consultar_recetas') }}">Volver</a>
 {% endblock %}

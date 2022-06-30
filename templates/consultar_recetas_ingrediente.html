@@ -1,38 +1,44 @@
 {% extends "base_template2.html" %}
 {% block title %}Consultar Recetas{% endblock %}
 {% block content %}
-<h1>Sancho Panza</h1>
+<h1>Sancho Panza Restaurant</h1>
 <hr/>
 <h2>Consultar Recetas por Ingrediente</h2>
 <form action="{{ url_for('consultar_recetas_ingrediente') }}" method="post">
-    <label for="ingrediente_receta">Ingrediente a buscar: </label> <input type="text" id="ingrediente_receta" name="ingrediente_receta" required><br>
+    <label for="ingrediente_receta">Ingrediente a buscar: </label> <input type="text" id="ingrediente_receta" name="ingrediente_receta" required> <br>
     <input type="submit" value="Aceptar">
 </form>
-<!--{% if band %}-->
-    <!--{% if ingrediente %}-->
-        <h3>Recetas que incluyen el ingrediente{{ ingrediente }}</h3>
+{% if band %}
+    {% if recetas %}
+        <h3>Recetas que contienen el ingrediente "{{ ingrediente }}"</h3>
         <div class="container">
             <table>
                 <thead>
                     <tr>
                         <th>Receta</th>
-                        <th>Usuario</th>
-                        <th>Me gusta</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for receta in ingredientes %}
+                    {% for receta in recetas %}
                         <tr>
-                            <td>{{ ingrediente.receta.nombre }}</td>        <!--deberia ser un link que mande a una página con los datos de la receta-->
-                            <td>{{ ingrediente.receta.usuario.nombre }}</td>
-                            <td>{{ ingrediente.receta.cantidadmegusta }}</td>
+                            <td>{{ receta.nombre }}</td>
+                            <td>
+                                <form action="{{ url_for('ver_receta') }}" method="post">
+                                    <input type="hidden" id="recetaid" name="recetaid" value={{receta.id}}>
+                                    <input type="hidden" id="usuario_receta" name="usuario_receta" value={{receta.usuario.nombre}}>
+                                    <input type="hidden" id="megusta" name="megusta" value="nomegusta">
+                                    <input type="submit" value="Ver receta">
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-    <!--{% endif %}-->
-<!--{% else %}-->
+    {% endif %}
+{% else %}
         <h3>No hay recetas que incluyan el ingrediente {{ ingrediente }}.</h3>
-<!--{% endif %}-->
+{% endif %}
+<br>
+<a href="{{ url_for('consultar_recetas') }}">Volver</a>
 {% endblock %}

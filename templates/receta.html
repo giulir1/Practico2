@@ -1,0 +1,35 @@
+{% extends "base_template2.html" %}
+{% block title %}Sancho Panza{% endblock %}
+{% block content %}
+<h1>Sancho Panza Restaurant</h1>
+<hr/>
+<div class="container">
+  <h2>Receta: {{ receta.nombre }}</h2>
+  <h4>Subida por: {{ receta.usuario.nombre }}</h4>
+  <h4>Tiempo de preparación: {{ receta.tiempo }} minutos.</h4>
+  <h3>Me Gusta: {{ receta.cantidadmegusta }}</h3>
+  {% if receta.usuario.nombre != usuario_actual.nombre %}
+    <form action="{{ url_for('ver_receta') }}" method="post">
+      <input type="hidden" id="recetaid" name="recetaid" value={{receta.id}}>
+      <input type="hidden" id="usuario_receta" name="usuario_receta" value={{receta.usuario.nombre}}>
+      {% if not band %}
+        <input type="submit" id="megusta" name="megusta" value="Me Gusta">
+      {% else %}
+        <input type="submit" id="nomegusta" name="megusta" value="Ya no Me Gusta">
+      {% endif %}
+    </form>
+  {% endif %}
+  <h3>Ingredientes</h3>
+  <ol>
+    {% for ingrediente in ingredientes %}
+    <li>
+      <h4>Nombre: {{ ingrediente.nombre }}</h4>
+      <h4>Cantidad: {{ingrediente.cantidad}} {{ingrediente.unidad}}</h4>
+    </li>
+    {% endfor %}
+  </ol>
+  <h4>Elaboración</h4>
+  <p>{{ receta.elaboracion }}</p>
+  <h3>Fecha: {{ receta.fecha }}</h3>
+</div>
+{% endblock %}

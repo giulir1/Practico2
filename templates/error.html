@@ -1,6 +1,9 @@
-{% extends "base_template2.html" %}
+{% extends "base_template_inicio.html" %}
 {% block title %}Error{% endblock %}
 {% block content %}
-<h1> ERROR </h1>
-<h2>{{ error }}</h2>
+<div class="container">
+    <h1> ERROR </h1>
+    <h2>{{ error }}</h2>
+    <a href="{{ url_for('inicio_sesion') }}">Volver</a>
+</div>
 {% endblock %}
