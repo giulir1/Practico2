@@ -29,6 +29,6 @@ class Ingrediente(db.Model):
     __tablename__ = 'ingrediente'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(80), unique=True)
-    cantidad = db.Column(db.Float)
+    cantidad = db.Column(db.String)
     unidad = db.Column(db.String(20))
     recetaid = db.Column(db.Integer, db.ForeignKey('receta.id'))
