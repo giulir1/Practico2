@@ -1,8 +1,10 @@
 {% extends "base_template2.html" %}
 {% block title %}Sancho Panza{% endblock %}
 {% block content %}
-<h1>Sancho Panza Restaurant</h1>
-<hr/>
+<div class="titulo">
+  <h1>Sancho Panza Restaurant</h1>
+  <hr/>
+</div>
 <div class="container">
   <h2>Receta: {{ receta.nombre }}</h2>
   <h4>Subida por: {{ receta.usuario.nombre }}</h4>
@@ -25,6 +27,7 @@
     <li>
       <h4>Nombre: {{ ingrediente.nombre }}</h4>
       <h4>Cantidad: {{ingrediente.cantidad}} {{ingrediente.unidad}}</h4>
+      <hr>
     </li>
     {% endfor %}
   </ol>

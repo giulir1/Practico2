@@ -1,7 +1,10 @@
 {% extends "base_template2.html" %}
 {% block title %}Ingresar Receta{% endblock %}
 {% block content %}
+<div class="titulo">
   <h1>Sancho Panza Restaurant</h1>
+  <hr/>
+</div>
   <h2>Ingresar Receta</h2>
   <div class="container">
   <form action="{{ url_for('compartir_receta') }}" method="post">
